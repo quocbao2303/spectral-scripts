@@ -1,0 +1,11 @@
+{
+  "status": "interrupted",
+  "engine": "glm",
+  "scripts": [
+    "latin"
+  ],
+  "matrices": {},
+  "statistics": {},
+  "errors": [],
+  "warnings": []
+}

@@ -1,0 +1,64 @@
+{
+  "status": "success",
+  "engine": "tesseract",
+  "scripts": [
+    "arabic",
+    "cyrillic",
+    "greek",
+    "latin"
+  ],
+  "matrices": {
+    "arabic": {
+      "npz": "/Users/quoc-baonguyen/spectral_scripts/data/confusion_matrices/tesseract/arabic.npz",
+      "json": "/Users/quoc-baonguyen/spectral_scripts/data/confusion_matrices/tesseract/arabic.json"
+    },
+    "cyrillic": {
+      "npz": "/Users/quoc-baonguyen/spectral_scripts/data/confusion_matrices/tesseract/cyrillic.npz",
+      "json": "/Users/quoc-baonguyen/spectral_scripts/data/confusion_matrices/tesseract/cyrillic.json"
+    },
+    "greek": {
+      "npz": "/Users/quoc-baonguyen/spectral_scripts/data/confusion_matrices/tesseract/greek.npz",
+      "json": "/Users/quoc-baonguyen/spectral_scripts/data/confusion_matrices/tesseract/greek.json"
+    },
+    "latin": {
+      "npz": "/Users/quoc-baonguyen/spectral_scripts/data/confusion_matrices/tesseract/latin.npz",
+      "json": "/Users/quoc-baonguyen/spectral_scripts/data/confusion_matrices/tesseract/latin.json"
+    }
+  },
+  "statistics": {
+    "arabic": {
+      "processed": 1560,
+      "skipped": 0,
+      "errors": 0
+    },
+    "cyrillic": {
+      "processed": 1542,
+      "skipped": 0,
+      "errors": 0
+    },
+    "greek": {
+      "processed": 1545,
+      "skipped": 0,
+      "errors": 0
+    },
+    "latin": {
+      "processed": 1440,
+      "skipped": 0,
+      "errors": 0
+    }
+  },
+  "errors": [],
+  "warnings": [
+    "arabic: Low accuracy: 42.3%",
+    "arabic: Matrix has 37 zero rows, 2 zero columns",
+    "arabic: High variance in row sums: 498415.9. Some characters may have different accuracy levels.",
+    "cyrillic: Matrix has 24 zero rows, 1 zero columns",
+    "cyrillic: High variance in row sums: 379206.1. Some characters may have different accuracy levels.",
+    "greek: Matrix has 30 zero rows, 1 zero columns",
+    "greek: High variance in row sums: 354374.7. Some characters may have different accuracy levels.",
+    "latin: Suspiciously high accuracy: 99.1%",
+    "latin: Matrix has 11 zero rows, 0 zero columns",
+    "latin: High variance in row sums: 477768.6. Some characters may have different accuracy levels."
+  ],
+  "report": "/Users/quoc-baonguyen/spectral_scripts/data/confusion_matrices/tesseract/tesseract_pipeline_report.md"
+}

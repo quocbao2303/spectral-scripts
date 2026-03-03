@@ -1,0 +1,30 @@
+{
+  "generated": "2026-03-03T18:57:36.812994",
+  "scripts": {
+    "arabic": {
+      "input_files": 1,
+      "total_lines": 520,
+      "total_images": 1560,
+      "errors": 0
+    },
+    "cyrillic": {
+      "input_files": 1,
+      "total_lines": 514,
+      "total_images": 1542,
+      "errors": 0
+    },
+    "greek": {
+      "input_files": 1,
+      "total_lines": 515,
+      "total_images": 1545,
+      "errors": 0
+    },
+    "latin": {
+      "input_files": 1,
+      "total_lines": 480,
+      "total_images": 1440,
+      "errors": 0
+    }
+  },
+  "total_images": 6087
+}

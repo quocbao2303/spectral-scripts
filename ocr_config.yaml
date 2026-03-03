@@ -1,0 +1,135 @@
+# OCR Pipeline Configuration - Multi-Engine Support
+# 
+# Supported engines: trocr, tesseract, easyocr, paddle, surya
+# 
+# Usage examples:
+#   python scripts/run_ocr_pipeline.py --config ocr_config.yaml --engine paddle
+#   python scripts/run_ocr_pipeline.py --engine surya --device cuda --scripts arabic
+
+# ═══════════════════════════════════════════════════════════════════
+# PATHS
+# ═══════════════════════════════════════════════════════════════════
+
+input_dir: data/raw/images
+ground_truth_dir: data/raw/ground_truth
+output_dir: data/confusion_matrices
+
+# ═══════════════════════════════════════════════════════════════════
+# SCRIPTS TO PROCESS
+# ═══════════════════════════════════════════════════════════════════
+
+# Supported: latin, greek, cyrillic, arabic
+# Can be overridden via command line: --scripts arabic latin
+scripts:
+  - latin
+  - greek
+  - cyrillic
+  - arabic
+
+# ═══════════════════════════════════════════════════════════════════
+# OCR ENGINE CONFIGURATION
+# ═══════════════════════════════════════════════════════════════════
+
+ocr:
+  # Active engine: trocr | tesseract | easyocr | paddle | surya
+  engine: trocr
+
+  # ─────────────────────────────────────────────────────────────
+  # TrOCR Configuration
+  # ─────────────────────────────────────────────────────────────
+  # model_type: printed | handwritten
+  # device: cpu | cuda | mps (Apple Silicon)
+  # Supports all scripts
+  
+  trocr_model_type: printed
+
+  # ─────────────────────────────────────────────────────────────
+  # PaddleOCR Configuration
+  # ─────────────────────────────────────────────────────────────
+  # ★ RECOMMENDED for Arabic
+  # Supports all scripts
+  # Very fast, high accuracy
+  # device: cpu | cuda
+  
+  paddle_use_angle_cls: true  # Enable angle classification (important for Arabic)
+  paddle_lang: "ch"           # Default: Chinese. Use 'ar' for Arabic, 'en' for English
+
+  # ─────────────────────────────────────────────────────────────
+  # Surya Configuration
+  # ─────────────────────────────────────────────────────────────
+  # ★ HIGHEST ACCURACY (but slower)
+  # Supports all scripts
+  # State-of-the-art transformer-based OCR
+  # device: cpu | cuda | mps
+  
+  surya_lang: "en"  # Language code
+
+  # ─────────────────────────────────────────────────────────────
+  # Tesseract Configuration
+  # ─────────────────────────────────────────────────────────────
+  # Supports all scripts (but Arabic can be weak)
+  # Requires system Tesseract binary installed
+  
+  psm: 6    # Page Segmentation Mode (6 = assume single column)
+  oem: 3    # OCR Engine Mode (3 = legacy + LSTM)
+
+  # ─────────────────────────────────────────────────────────────
+  # General OCR Options
+  # ─────────────────────────────────────────────────────────────
+  
+  confidence_threshold: 0.3
+  device: cpu                 # cpu | cuda | mps
+  batch_size: 8               # Reduce if GPU memory issues
+
+# ═══════════════════════════════════════════════════════════════════
+# IMAGE PROCESSING
+# ═══════════════════════════════════════════════════════════════════
+
+image:
+  min_width: 100
+  min_height: 50
+  max_width: 4000
+  max_height: 3000
+  supported_formats:
+    - .png
+    - .jpg
+    - .jpeg
+    - .tiff
+    - .bmp
+
+# ═══════════════════════════════════════════════════════════════════
+# CHARACTER MATCHING
+# ═══════════════════════════════════════════════════════════════════
+
+matching:
+  use_edit_distance: true
+  max_edit_distance: 2
+  case_sensitive: true
+  normalize_unicode: true    # Normalize to NFC form
+
+# ═══════════════════════════════════════════════════════════════════
+# PROCESSING OPTIONS
+# ═══════════════════════════════════════════════════════════════════
+
+max_workers: 4
+batch_size: 8
+verbose: true
+
+# ═══════════════════════════════════════════════════════════════════
+# QUICK COMMAND EXAMPLES
+# ═══════════════════════════════════════════════════════════════════
+
+# Arabic optimization (best option):
+#   make ocr-process OCR_ENGINE=paddle SCRIPTS=arabic
+#
+# Highest accuracy (slower):
+#   make ocr-process OCR_ENGINE=surya --device cuda --scripts arabic
+#
+# Fast general use:
+#   make ocr-process OCR_ENGINE=trocr SCRIPTS="latin greek cyrillic arabic"
+#
+# Traditional OCR:
+#   make ocr-process OCR_ENGINE=tesseract SCRIPTS="latin greek cyrillic"
+#
+# Latin + Cyrillic only:
+#   make ocr-process OCR_ENGINE=easyocr SCRIPTS="latin cyrillic"
